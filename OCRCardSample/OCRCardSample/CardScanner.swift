@@ -9,6 +9,7 @@ import AVFoundation
 import CoreImage
 import UIKit
 import Vision
+import Alamofire
 
 @available(iOS 13.0, *)
 public class CardScanner: UIViewController {
@@ -79,14 +80,16 @@ public class CardScanner: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupCaptureSession()
-        captureSession.startRunning()
         title = viewTitle
 
         let buttomItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(scanCompleted))
         buttomItem.tintColor = .white
         navigationItem.leftBarButtonItem = buttomItem
-        
-        self.setupTorch()
+
+        DispatchQueue.global().async {
+            self.captureSession.startRunning()
+        }
+//        self.setupTorch()
     }
 
     override public func viewDidLayoutSubviews() {
@@ -242,6 +245,7 @@ public class CardScanner: UIViewController {
     // MARK: - Completed process
 
     @objc func scanCompleted() {
+        self.sendNHNGeneralOCR(image: self.image)
         resultsHandler(creditCardNumber, creditCardDate, creditCardCVV)
         stop()
         dismiss(animated: true, completion: nil)
@@ -256,10 +260,30 @@ public class CardScanner: UIViewController {
 
     private func handleObservedPaymentCard(in frame: CVImageBuffer) {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.extractPaymentCardData(frame: frame)
+//            self.extractPaymentCardData(frame: frame)
+            let ciImage = CIImage(cvImageBuffer: frame)
+            self.image = UIImage(ciImage: ciImage)
         }
     }
-
+    
+    private var image: UIImage?
+    
+    private func sendNHNGeneralOCR(image: UIImage?) {
+        guard let image, let imageData = image.jpegData(compressionQuality: 1) else { return }
+        let apiURL = "https://ocr.api.nhncloudservice.com/v1.0/appkeys/\(NHNConst.APP_KEY)/general"
+        
+        let headers: HTTPHeaders = [
+            "Authorization": NHNConst.SECRET_KEY,
+            "Content-Type": "multipart/form-data"
+        ]
+        
+        AF.upload(multipartFormData: { multipartData in
+            multipartData.append(imageData, withName: "image", fileName: "sample.png")
+        }, to: apiURL, headers: headers).responseString { response in
+            print(response)
+        }
+    }
+    
     private func extractPaymentCardData(frame: CVImageBuffer) {
         let ciImage = CIImage(cvImageBuffer: frame)
         let widht = UIScreen.main.bounds.width - (UIScreen.main.bounds.width * 0.2)
@@ -392,7 +416,7 @@ extension CardScanner: AVCaptureVideoDataOutputSampleBufferDelegate {
             debugPrint("unable to get image from sample buffer")
             return
         }
-
+        print("capture")
         handleObservedPaymentCard(in: frame)
     }
 }

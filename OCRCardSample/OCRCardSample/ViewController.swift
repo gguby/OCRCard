@@ -54,6 +54,7 @@ class ViewController: UIViewController {
         
         scanButton.addTarget(self, action: #selector(scanPaymentCard(sender:)), for: .touchUpInside)
         scanNHNOCRButton.addTarget(self, action: #selector(scanNHNOCRCard(sender:)), for: .touchUpInside)
+        self.view.backgroundColor = .red
     }
 
     override func didReceiveMemoryWarning() {

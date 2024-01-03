@@ -19,6 +19,7 @@
 		5326197C2B3D6B5200FBF3C6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5326197B2B3D6B5200FBF3C6 /* SnapKit */; };
 		53D2851C2B44F98A00AB9A70 /* NHNCloudOCR in Frameworks */ = {isa = PBXBuildFile; productRef = 53D2851B2B44F98A00AB9A70 /* NHNCloudOCR */; };
 		53D2851E2B45155600AB9A70 /* NHNOCRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2851D2B45155600AB9A70 /* NHNOCRViewController.swift */; };
+		53D285212B453DBB00AB9A70 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 53D285202B453DBB00AB9A70 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53D285212B453DBB00AB9A70 /* Alamofire in Frameworks */,
 				53D2851C2B44F98A00AB9A70 /* NHNCloudOCR in Frameworks */,
 				5326197C2B3D6B5200FBF3C6 /* SnapKit in Frameworks */,
 			);
@@ -110,6 +112,7 @@
 			packageProductDependencies = (
 				5326197B2B3D6B5200FBF3C6 /* SnapKit */,
 				53D2851B2B44F98A00AB9A70 /* NHNCloudOCR */,
+				53D285202B453DBB00AB9A70 /* Alamofire */,
 			);
 			productName = OCRCardSample;
 			productReference = 532619522B3D02AC00FBF3C6 /* OCRCardSample.app */;
@@ -142,6 +145,7 @@
 			packageReferences = (
 				5326197A2B3D6B5200FBF3C6 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				53D2851A2B44F98A00AB9A70 /* XCRemoteSwiftPackageReference "nhncloud.ios" */,
+				53D2851F2B453DBB00AB9A70 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 532619532B3D02AC00FBF3C6 /* Products */;
 			projectDirPath = "";
@@ -427,6 +431,14 @@
 				minimumVersion = 1.7.1;
 			};
 		};
+		53D2851F2B453DBB00AB9A70 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -439,6 +451,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 53D2851A2B44F98A00AB9A70 /* XCRemoteSwiftPackageReference "nhncloud.ios" */;
 			productName = NHNCloudOCR;
+		};
+		53D285202B453DBB00AB9A70 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53D2851F2B453DBB00AB9A70 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
