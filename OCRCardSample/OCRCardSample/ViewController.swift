@@ -24,6 +24,13 @@ class ViewController: UIViewController {
         return button
     }()
     
+    private let scanNHNOCRButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitleColor(.black, for: .normal)
+        button.setTitle("Scan NHN OCR", for: .normal)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -33,6 +40,12 @@ class ViewController: UIViewController {
             $0.center.equalToSuperview()
             $0.width.height.equalTo(100)
         }
+        self.view.addSubview(scanNHNOCRButton)
+        scanNHNOCRButton.snp.makeConstraints {
+            $0.top.equalTo(scanButton.snp.bottom).offset(50)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(100)
+        }
         self.view.addSubview(resultsLabel)
         resultsLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -40,6 +53,7 @@ class ViewController: UIViewController {
         }
         
         scanButton.addTarget(self, action: #selector(scanPaymentCard(sender:)), for: .touchUpInside)
+        scanNHNOCRButton.addTarget(self, action: #selector(scanNHNOCRCard(sender:)), for: .touchUpInside)
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,6 +67,11 @@ class ViewController: UIViewController {
             self.resultsLabel.text = "\(card) \(date) \(cvv)"
         }
         present(scannerView, animated: true, completion: nil)
+    }
+    
+    @objc func scanNHNOCRCard(sender: Any) {
+        let nhnScanVC = NHNOCRViewController(nibName: nil, bundle: nil)
+        present(nhnScanVC, animated: true, completion: nil)
     }
 }
 

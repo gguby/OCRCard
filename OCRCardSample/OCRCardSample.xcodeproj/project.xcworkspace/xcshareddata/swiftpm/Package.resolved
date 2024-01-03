@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "nhncloud.ios.sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nhn/nhncloud.ios.sdk",
+      "state" : {
+        "revision" : "09bbecd5333716a7a50d40baa8647016801af607",
+        "version" : "1.7.1"
+      }
+    },
+    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SnapKit/SnapKit.git",
